@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="js/scripts.js" rel="stylesheet" />
+    <title>Portfolio</title>
+  </head>
+
+  <body>
+    <!-- This is the canvas holding the ball that moves with the mouse. -->
+    <style>
+      canvas {
+        border: 10px solid rgb(233, 187, 146);
+        display: block;
+        margin: 0 auto;
+      }
+      body {
+        padding-top: 250px;
+      
+      }
+    </style>
+    <canvas id="myCanvas" width="1500px" height="1000px"></canvas>
+      <script>
+        var canvas = document.querySelector("#myCanvas");
+        var context = canvas.getContext("2d");
+
+        var mouseX = 0;
+        var mouseY = 0;
+
+          canvas.addEventListener("mousemove", setMousePosition, false);
+
+        function setMousePosition(e) {
+            var canvasPos = getPosition(canvas);
+            var ballradius = 10
+            mouseX = e.clientX - canvasPos.x;
+            mouseY = e.clientY - canvasPos.y;
+        }   
+        // function drawBall(){
+        //   ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        //   if(y + dy >canvas.height || y +dy <0){
+        //     dy = - dy;
+        //   }
+        // }    
+
+
+        function update() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath();
+            context.arc(mouseX, mouseY, 50, 0, 2 * Math.PI, true);
+            context.fillStyle = "#FF6A6A";
+            context.fill();
+            
+            requestAnimationFrame(update);
+        }
+        update()
+
+        function getPosition(el) {
+            var xPosition = 0;
+            var yPosition = 0;
+
+        while (el) {
+            xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+            yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+            el = el.offsetParent;
+        }
+        return {
+            x: xPosition,
+            y: yPosition
+        };
+        }       
+      </script>
+    <div id="root"></div>
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+  </body>
+</html>
